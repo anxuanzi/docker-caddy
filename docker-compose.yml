@@ -15,6 +15,7 @@ services:
       - "443:443/udp"
     environment:
       - CADDY_INGRESS_NETWORKS=main
+      - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/Caddyfile
     restart: always
 volumes:
   caddy_proxy_data:
