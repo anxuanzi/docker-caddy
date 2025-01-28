@@ -5,7 +5,7 @@ RUN xcaddy build \
     --with github.com/greenpau/caddy-security \
     --with github.com/porech/caddy-maxmind-geolocation \
     --with github.com/ueffel/caddy-brotli \
-    --with github.com/anxuanzi/caddy-dns-ClouDNS \
+    --with github.com/caddy-dns/cloudns \
     --with github.com/corazawaf/coraza-caddy/v2
 
 FROM caddy:latest
