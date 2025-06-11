@@ -33,7 +33,4 @@ VOLUME ["/data", "/etc/caddy"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:2019/metrics || exit 1
 
-# Switch to non-root user
-USER caddy
-
 CMD ["caddy", "docker-proxy"]
