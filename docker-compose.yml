@@ -14,6 +14,10 @@ services:
         environment:
             - CADDY_INGRESS_NETWORKS=main
             - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/Caddyfile
+        # Add the host's Docker GID to the container
+        # Use DOCKER_GID environment variable or fallback to 999
+        group_add:
+            - ${DOCKER_GID:-999}
         restart: always
 volumes:
     caddy_proxy_data:
