@@ -15,28 +15,10 @@ LABEL org.opencontainers.image.description="Caddy with additional plugins for Do
 LABEL org.opencontainers.image.source="https://github.com/anxuanzi/docker-caddy"
 LABEL org.opencontainers.image.licenses="Apache-2.0"
 
-# Accept build argument for Docker GID, default to 999
-ARG DOCKER_GID=999
+RUN apk add --no-cache \
+	curl
 
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
-
-# Install curl for healthcheck
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
-
-# Create a non-root user to run Caddy and add to docker group
-RUN addgroup --system --gid 1000 caddy && \
-    adduser --system --uid 1000 --gid 1000 --home /home/caddy caddy && \
-    mkdir -p /data /etc/caddy && \
-    chown -R caddy:caddy /data /etc/caddy && \
-    # Create docker group with GID from build argument
-    addgroup --system --gid ${DOCKER_GID} docker && \
-    # Add caddy user to docker group to access Docker socket
-    adduser caddy docker
-
-# Set appropriate permissions for the Caddy binary
-RUN setcap 'cap_net_bind_service=+ep' /usr/bin/caddy
 
 # Expose ports
 EXPOSE 80/tcp
