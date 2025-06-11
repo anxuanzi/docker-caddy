@@ -12,16 +12,34 @@ This repository contains a Docker setup for running Caddy with additional plugin
 1. Clone the repository.
 2. Navigate to the repository directory.
 
-## Building the Docker image
+## Docker Images
 
-The Docker image is built using GitHub Actions. The workflow file is located at `.github/workflows/build-image.yml`. The image is built and pushed to the GitHub Container Registry.
+The Docker images are built and published using GitHub Actions. There are two separate workflows:
+
+1. **Check Build Workflow** (`.github/workflows/check-build.yml`): Verifies that the Docker image builds successfully without publishing it.
+2. **Build and Publish Workflow** (`.github/workflows/build-image.yml`): Builds and publishes the Docker image when a new release is created.
+
+### CI/CD Process
+
+- **Push to main branch**: Triggers the Check Build workflow, which builds the image for testing purposes but does not publish it.
+- **Release publication**: Triggers the Build and Publish workflow, which builds and publishes the image with the release tag and updates the `latest` tag.
+
+### Using Pre-Built Images
+
+Images are available in the GitHub Container Registry:
 
 https://github.com/anxuanzi/docker-caddy/pkgs/container/docker-caddy
 
-Or Use Pre-Built Image
+You can pull the latest stable release:
 
 ```bash
 docker pull ghcr.io/anxuanzi/docker-caddy:latest
+```
+
+Or a specific version:
+
+```bash
+docker pull ghcr.io/anxuanzi/docker-caddy:v1.0.0  # Replace with the actual version
 ```
 
 ## Running the Docker container

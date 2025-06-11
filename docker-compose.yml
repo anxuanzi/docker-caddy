@@ -1,29 +1,27 @@
-version: '3.8'
-
 services:
-  server:
-    image: ghcr.io/anxuanzi/docker-caddy:main
-    labels:
-      - com.centurylinklabs.watchtower.enable=true
-    volumes:
-      - caddy_proxy_data:/data
-      - caddy_proxy_caddyfile:/etc/caddy
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "80:80"
-      - "443:443/tcp"
-      - "443:443/udp"
-    environment:
-      - CADDY_INGRESS_NETWORKS=main
-      - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/Caddyfile
-    restart: always
+    server:
+        image: ghcr.io/anxuanzi/docker-caddy:latest
+        labels:
+            - com.centurylinklabs.watchtower.enable=true
+        volumes:
+            - caddy_proxy_data:/data
+            - caddy_proxy_caddyfile:/etc/caddy
+            - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+            - "80:80"
+            - "443:443/tcp"
+            - "443:443/udp"
+        environment:
+            - CADDY_INGRESS_NETWORKS=main
+            - CADDY_DOCKER_CADDYFILE_PATH=/etc/caddy/Caddyfile
+        restart: always
 volumes:
-  caddy_proxy_data:
-    driver: local
-  caddy_proxy_caddyfile:
-    driver: local
+    caddy_proxy_data:
+        driver: local
+    caddy_proxy_caddyfile:
+        driver: local
 
 networks:
-  default:
-    name: main
-    external: true
+    default:
+        name: main
+        external: true
