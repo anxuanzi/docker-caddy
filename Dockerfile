@@ -6,6 +6,7 @@ RUN xcaddy build \
     --with github.com/porech/caddy-maxmind-geolocation \
     --with github.com/ueffel/caddy-brotli \
     --with github.com/caddy-dns/cloudns@v1.1.0 \
+	--with github.com/caddy-dns/digitalocean \
     --with github.com/corazawaf/coraza-caddy/v2
 
 FROM caddy:latest
